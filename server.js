@@ -42,6 +42,28 @@ app.post("/send-email", (req, res) => {
   });
 });
 
+
+// Route to handle form submission
+app.post("/send-email_chandan", (req, res) => {
+  console.log("Received data:", req.body); // Log incoming data
+  const { name, email, message } = req.body;
+
+  const mailOptions = {
+    from: "rahulapps29@gmail.com",
+    to: "chandankumar0879@gmail.com",
+    subject: "SSRA & Company: New Form Submission",
+    text: `You have a new form submission:\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email:", error); // Log the error
+      return res.status(500).send("Error sending email: " + error.message);
+    }
+    res.send("Email sent successfully!");
+  });
+});
+
 const PORT = 4028;
 app.listen(PORT, () =>
   console.log(`Server running on http://localhost:${PORT}`)
