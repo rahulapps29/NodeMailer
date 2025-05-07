@@ -5,12 +5,12 @@ const bodyParser = require("body-parser");
 
 const app = express();
 const cors = require("cors");
-
+const labelRoutes = require("./Label_backend/routes/LabelRoutes");
 // Allow requests from all origins
 app.use(cors());
 
 // Middleware to parse JSON data from the request body
-app.use(bodyParser.json());
+app.use(express.json());
 
 // NodeMailer Transporter
 const transporter = nodemailer.createTransport({
@@ -42,7 +42,6 @@ app.post("/send-email", (req, res) => {
   });
 });
 
-
 // Route to handle form submission
 app.post("/send-email_chandan", (req, res) => {
   console.log("Received data:", req.body); // Log incoming data
@@ -63,6 +62,8 @@ app.post("/send-email_chandan", (req, res) => {
     res.send("Email sent successfully!");
   });
 });
+
+app.use("/label", labelRoutes);
 
 const PORT = 4028;
 app.listen(PORT, () =>
