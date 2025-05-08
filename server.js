@@ -2,10 +2,13 @@ require("dotenv").config(); // Load environment variables from .env
 const express = require("express");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
-
 const app = express();
 const cors = require("cors");
+
+//routes
 const labelRoutes = require("./Label_backend/routes/LabelRoutes");
+const emailRoutes = require("./Email_backend/routes/emailRoutes");
+
 // Allow requests from all origins
 app.use(cors());
 
@@ -64,6 +67,7 @@ app.post("/send-email_chandan", (req, res) => {
 });
 
 app.use("/label", labelRoutes);
+app.use("/mailer", emailRoutes); // mount email routes
 
 const PORT = 4028;
 app.listen(PORT, () =>
